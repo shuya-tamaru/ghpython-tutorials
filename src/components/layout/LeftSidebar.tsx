@@ -1,7 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { HiOutlineFilter, HiOutlineTag, HiOutlineStar } from 'react-icons/hi'
+import { HiOutlineStar } from 'react-icons/hi'
+import { IoIosSearch } from 'react-icons/io'
+import { IoPricetagOutline } from 'react-icons/io5'
 import { TUTORIAL_TAGS, TAG_COLORS, type TutorialTag } from '@/lib/tags'
 
 interface LeftSidebarProps {
@@ -52,21 +54,17 @@ export default function LeftSidebar({
 
       {/* Sidebar */}
       <aside className={`
-        fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-gray-900 
-        z-50 transform transition-transform duration-300
+        fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 z-50 transform transition-transform duration-300
         md:translate-x-0 md:fixed md:z-auto
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        ${isTutorialDetailPage ? '' : 'border-r border-gray-200 dark:border-gray-700'}
+        ${isTutorialDetailPage 
+          ? 'bg-[#F8F9FA] dark:bg-gray-900' 
+          : 'bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700'
+        }
       `}>
         <div className={`p-4 h-full flex flex-col ${isTutorialDetailPage ? 'opacity-0 pointer-events-none' : ''}`}>
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-2">
-              <HiOutlineFilter className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                フィルター
-              </h2>
-            </div>
             <button
               onClick={onClose}
               className="md:hidden p-1 rounded text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -75,8 +73,14 @@ export default function LeftSidebar({
             </button>
           </div>
 
-          {/* Search */}
-          <div className="mb-3">
+          {/* Title Search */}
+          <div className="mb-4">
+            <div className="flex items-center space-x-2 mb-3">
+              <IoIosSearch className="w-5 h-5 text-primary" />
+              <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
+                タイトル検索
+              </span>
+            </div>
             <input
               type="text"
               placeholder="チュートリアルを検索..."
@@ -93,8 +97,8 @@ export default function LeftSidebar({
           {/* Control Bar */}
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
-              <HiOutlineTag className="w-4 h-4 text-primary" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
+              <IoPricetagOutline className="w-5 h-5 text-primary" />
+              <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
                 タグ ({selectedTags.length}/{TUTORIAL_TAGS.length})
               </span>
             </div>
@@ -102,7 +106,8 @@ export default function LeftSidebar({
               <button
                 onClick={clearAllTags}
                 className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
-                         px-2 py-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                         px-2 py-1 rounded-md bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 
+                         border border-red-200 dark:border-red-800 transition-colors"
               >
                 クリア
               </button>
@@ -139,8 +144,8 @@ export default function LeftSidebar({
           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">
-                <HiOutlineStar className="w-4 h-4 text-primary" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
+                <HiOutlineStar className="w-5 h-5 text-primary" />
+                <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
                   難易度
                 </span>
               </div>
@@ -148,7 +153,8 @@ export default function LeftSidebar({
                 <button
                   onClick={() => onDifficultyFilterChange(null)}
                   className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
-                           px-2 py-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                           px-2 py-1 rounded-md bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 
+                           border border-red-200 dark:border-red-800 transition-colors"
                 >
                   クリア
                 </button>

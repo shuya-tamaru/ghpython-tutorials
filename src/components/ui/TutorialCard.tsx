@@ -16,7 +16,7 @@ export default function TutorialCard({ tutorial, viewMode = 'grid-2' }: Tutorial
     <Link 
       href={`/tutorial/${tutorial.slug}`}
       className="group block bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 
-               hover:shadow-lg hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-200 overflow-hidden"
+               hover:shadow-lg hover:opacity-80 transition-all duration-200 overflow-hidden"
     >
       {/* Thumbnail */}
       <div className={`relative ${isCompact ? 'aspect-video' : 'aspect-[4/3]'}`}>
@@ -38,8 +38,7 @@ export default function TutorialCard({ tutorial, viewMode = 'grid-2' }: Tutorial
 
       {/* Content */}
       <div className={`p-4 ${isCompact ? 'p-3' : 'p-4'}`}>
-        <h3 className={`font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary 
-                       dark:group-hover:text-primary transition-colors ${isCompact ? 'text-sm' : 'text-lg'}`}>
+        <h3 className={`font-semibold text-gray-900 dark:text-white mb-2 transition-colors ${isCompact ? 'text-sm' : 'text-lg'}`}>
           {tutorial.title}
         </h3>
 

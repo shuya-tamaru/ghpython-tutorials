@@ -70,7 +70,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
 
         {/* Thumbnail */}
         <div className="mb-8">
-          <div className="aspect-video rounded-lg overflow-hidden">
+          <div className="aspect-video rounded-lg overflow-hidden border border-gray-200/50 dark:border-gray-700/50">
             <TutorialImage
               src={tutorial.thumbnailPath}
               alt={`${tutorial.title}のサムネイル`}
