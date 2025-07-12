@@ -13,7 +13,12 @@ export default async function Home() {
             GhPython Tutorials
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
-            One Model a Day with Grasshopper Python
+            <span className="md:hidden">
+              One Model a Day<br />with Grasshopper Python
+            </span>
+            <span className="hidden md:inline">
+              One Model a Day with Grasshopper Python
+            </span>
           </p>
         </div>
 

@@ -72,25 +72,16 @@ export default function MobileDrawer({
       {/* Drawer */}
       <aside
         className={`
-        fixed right-0 top-0 h-full w-80 bg-white dark:bg-gray-900 z-50 
+        fixed right-0 top-0 h-full w-96 bg-white dark:bg-gray-900 z-50 
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "translate-x-full"}
       `}
       >
         <div className="p-4 h-full flex flex-col">
-          {/* Header */}
-          <div className="flex items-center justify-end mb-6 pt-4">
-            <button
-              onClick={onClose}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-            >
-              ✕
-            </button>
-          </div>
-
-          {/* SNS Links */}
-          <div className="mb-6">
-            <div className="grid grid-cols-2 gap-3">
+          {/* Header with SNS and Close */}
+          <div className="flex items-center justify-between mb-6 pt-4">
+            {/* SNS Links */}
+            <div className="flex gap-1">
               {snsLinks.map((link) => {
                 const IconComponent = link.icon;
                 return (
@@ -99,37 +90,43 @@ export default function MobileDrawer({
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    className="p-2 text-gray-600 dark:text-gray-400 hover:opacity-70 transition-opacity duration-200"
+                    aria-label={link.name}
                   >
-                    <IconComponent className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {link.name.replace(" (Twitter)", "")}
-                    </span>
+                    <IconComponent className="w-5 h-5" />
                   </a>
                 );
               })}
             </div>
+            
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            >
+              ✕
+            </button>
           </div>
 
           {/* Divider */}
-          <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+          <div className="border-t border-gray-200 dark:border-gray-700 mb-4"></div>
 
           {/* Search */}
           <div className="mb-4">
             <div className="flex items-center space-x-2 mb-3">
               <IoIosSearch className="w-6 h-6 text-red-500" />
               <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                タイトル検索
+                Search
               </h3>
             </div>
             <input
               type="text"
-              placeholder="チュートリアルを検索..."
+              placeholder="Search tutorials..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg 
                        bg-white dark:bg-gray-800 text-gray-900 dark:text-white
-                       focus:ring-2 focus:ring-primary focus:border-transparent
+                       focus:outline-none
                        placeholder-gray-500 dark:placeholder-gray-400"
             />
           </div>
@@ -140,7 +137,7 @@ export default function MobileDrawer({
               <div className="flex items-center space-x-2">
                 <HiOutlineStar className="w-6 h-6 text-yellow-500" />
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  難易度
+                  Difficulty
                 </span>
               </div>
               {difficultyFilter !== null && (
@@ -149,7 +146,7 @@ export default function MobileDrawer({
                   className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
                            px-2 py-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                 >
-                  クリア
+                  Clear
                 </button>
               )}
             </div>
@@ -173,7 +170,7 @@ export default function MobileDrawer({
                 }}
               />
               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                <span>全て</span>
+                <span>All</span>
                 <span>★1</span>
                 <span>★2</span>
                 <span>★3</span>
@@ -182,7 +179,7 @@ export default function MobileDrawer({
               </div>
               <div className="text-center">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {difficultyFilter ? `★${difficultyFilter}` : '全て表示'}
+                  {difficultyFilter ? `★${difficultyFilter}` : 'All'}
                 </span>
               </div>
             </div>
@@ -193,7 +190,7 @@ export default function MobileDrawer({
             <div className="flex items-center space-x-2">
               <IoPricetagOutline className="w-6 h-6 text-green-500" />
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                タグ ({selectedTags.length}/{TUTORIAL_TAGS.length})
+                Tags ({selectedTags.length}/{TUTORIAL_TAGS.length})
               </span>
             </div>
             {selectedTags.length > 0 && (
@@ -202,7 +199,7 @@ export default function MobileDrawer({
                 className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
                          px-2 py-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
               >
-                クリア
+                Clear
               </button>
             )}
           </div>
