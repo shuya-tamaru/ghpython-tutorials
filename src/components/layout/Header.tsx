@@ -8,7 +8,8 @@ import { FaInstagram, FaBlog, FaYoutube, FaHome } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaPen } from "react-icons/fa";
 import { VscGithubInverted } from "react-icons/vsc";
-import { MdLightMode, MdDarkMode } from "react-icons/md";
+import { GoSun } from "react-icons/go";
+import { MdModeNight } from "react-icons/md";
 import { HiMenu } from "react-icons/hi";
 import { useBodyBackground } from "@/hooks/useBodyBackground";
 
@@ -148,9 +149,9 @@ export default function Header({ onMenuClick }: HeaderProps) {
               }
             >
               {isDarkMode ? (
-                <MdLightMode className="w-5 h-5 text-yellow-500" />
+                <GoSun className="w-5 h-5 text-gray-600 dark:text-gray-400" />
               ) : (
-                <MdDarkMode className="w-5 h-5 text-gray-700" />
+                <MdModeNight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
               )}
             </button>
 

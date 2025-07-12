@@ -30,7 +30,7 @@ export default function TutorialCard({ tutorial, viewMode = 'grid-2' }: Tutorial
         
         {/* Day badge */}
         <div className="absolute top-3 left-3 z-10">
-          <span className="bg-primary text-white text-xs font-semibold px-2 py-1 rounded-full shadow-lg">
+          <span className="bg-primary text-white text-sm font-bold px-3 py-1.5 rounded-full shadow-lg">
             {tutorial.day}
           </span>
         </div>

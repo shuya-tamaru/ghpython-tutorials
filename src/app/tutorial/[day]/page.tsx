@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getAllTutorials, getTutorialBySlug } from '@/lib/tutorials'
+import { getAllTutorials, getTutorialBySlug, getNextTutorial, getPrevTutorial } from '@/lib/tutorials'
 import TutorialContent from '@/components/tutorial/TutorialContent'
 import TutorialImage from '@/components/ui/TutorialImage'
 import DifficultyStars from '@/components/ui/DifficultyStars'
@@ -39,6 +39,9 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   if (!tutorial) {
     notFound()
   }
+
+  const nextTutorial = await getNextTutorial(params.day)
+  const prevTutorial = await getPrevTutorial(params.day)
 
   return (
     <div className="container mx-auto px-4 py-6">
@@ -89,14 +92,30 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
 
         {/* Navigation */}
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <div className="flex justify-between">
-            <a
-              href="/"
-              className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 
-                       hover:text-primary dark:hover:text-primary transition-colors"
-            >
-              ← チュートリアル一覧に戻る
-            </a>
+          <div className="flex justify-between items-center">
+            <div>
+              {prevTutorial && (
+                <a
+                  href={`/tutorial/${prevTutorial.slug}`}
+                  className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 
+                           hover:text-primary dark:hover:text-primary transition-colors"
+                >
+                  ← {prevTutorial.day}
+                </a>
+              )}
+            </div>
+            
+            <div>
+              {nextTutorial && (
+                <a
+                  href={`/tutorial/${nextTutorial.slug}`}
+                  className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 
+                           hover:text-primary dark:hover:text-primary transition-colors"
+                >
+                  {nextTutorial.day} →
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>

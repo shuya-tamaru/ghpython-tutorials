@@ -76,7 +76,7 @@ export default function LeftSidebar({
           {/* Title Search */}
           <div className="mb-4">
             <div className="flex items-center space-x-2 mb-3">
-              <IoIosSearch className="w-5 h-5 text-primary" />
+              <IoIosSearch className="w-6 h-6 text-red-500" />
               <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
                 タイトル検索
               </span>
@@ -97,7 +97,7 @@ export default function LeftSidebar({
           {/* Control Bar */}
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center space-x-2">
-              <IoPricetagOutline className="w-5 h-5 text-primary" />
+              <IoPricetagOutline className="w-6 h-6 text-green-500" />
               <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
                 タグ ({selectedTags.length}/{TUTORIAL_TAGS.length})
               </span>
@@ -144,7 +144,7 @@ export default function LeftSidebar({
           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">
-                <HiOutlineStar className="w-5 h-5 text-primary" />
+                <HiOutlineStar className="w-6 h-6 text-yellow-500" />
                 <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
                   難易度
                 </span>

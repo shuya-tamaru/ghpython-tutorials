@@ -16,13 +16,13 @@ export default async function Home() {
             1日1モデリングでGrasshopper Pythonを学ぼう
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-            <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">
+            <span className="px-3 py-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 rounded-full">
               日々の練習
             </span>
-            <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full">
+            <span className="px-3 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full">
               実践的な学習
             </span>
-            <span className="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+            <span className="px-3 py-1 bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 rounded-full">
               段階的なレベルアップ
             </span>
           </div>

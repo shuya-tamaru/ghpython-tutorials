@@ -86,6 +86,28 @@ export async function getTutorialBySlug(slug: string): Promise<Tutorial | null> 
   return tutorials.find(tutorial => tutorial.slug === slug) || null
 }
 
+export async function getNextTutorial(currentSlug: string): Promise<Tutorial | null> {
+  const tutorials = await getAllTutorials()
+  const currentIndex = tutorials.findIndex(tutorial => tutorial.slug === currentSlug)
+  
+  if (currentIndex === -1 || currentIndex === tutorials.length - 1) {
+    return null // 見つからないか最後のチュートリアル
+  }
+  
+  return tutorials[currentIndex + 1]
+}
+
+export async function getPrevTutorial(currentSlug: string): Promise<Tutorial | null> {
+  const tutorials = await getAllTutorials()
+  const currentIndex = tutorials.findIndex(tutorial => tutorial.slug === currentSlug)
+  
+  if (currentIndex === -1 || currentIndex === 0) {
+    return null // 見つからないか最初のチュートリアル
+  }
+  
+  return tutorials[currentIndex - 1]
+}
+
 export async function getTutorialMetadata(): Promise<TutorialMetadata[]> {
   const tutorials = await getAllTutorials()
   return tutorials.map(tutorial => ({
