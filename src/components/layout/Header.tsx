@@ -7,27 +7,29 @@ import { CgShapeTriangle } from "react-icons/cg";
 import { FaInstagram, FaBlog, FaYoutube, FaHome } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaPen } from "react-icons/fa";
+import { VscGithubInverted } from "react-icons/vsc";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { HiMenu } from "react-icons/hi";
 import { useBodyBackground } from "@/hooks/useBodyBackground";
 
 interface HeaderProps {
-  onMenuClick: () => void
+  onMenuClick: () => void;
 }
 
 export default function Header({ onMenuClick }: HeaderProps) {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const pathname = usePathname();
-  
+
   // チュートリアル詳細ページかどうかを判定
-  const isTutorialDetailPage = pathname?.startsWith('/tutorial/') && pathname !== '/tutorial';
+  const isTutorialDetailPage =
+    pathname?.startsWith("/tutorial/") && pathname !== "/tutorial";
 
   // body背景色を管理
   useBodyBackground(isDarkMode);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    
+
     if (savedTheme === "light") {
       setIsDarkMode(false);
       document.documentElement.classList.remove("dark");
@@ -56,10 +58,23 @@ export default function Header({ onMenuClick }: HeaderProps) {
 
   const snsLinks = [
     { name: "X (Twitter)", icon: FaXTwitter, url: "https://x.com/tama20013" },
-    { name: "YouTube", icon: FaYoutube, url: "https://www.youtube.com/@studioTama" },
+    {
+      name: "YouTube",
+      icon: FaYoutube,
+      url: "https://www.youtube.com/@studioTama",
+    },
     { name: "ブログ", icon: FaBlog, url: "https://www.styublog.com/" },
     { name: "note", icon: FaPen, url: "https://note.com/tamaru_shuya" },
-    { name: "Instagram", icon: FaInstagram, url: "https://www.instagram.com/shuya_tamaru/" },
+    {
+      name: "GitHub",
+      icon: VscGithubInverted,
+      url: "https://github.com/shuya-tamaru",
+    },
+    {
+      name: "Instagram",
+      icon: FaInstagram,
+      url: "https://www.instagram.com/shuya_tamaru/",
+    },
   ];
 
   return (
@@ -69,25 +84,25 @@ export default function Header({ onMenuClick }: HeaderProps) {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             {isTutorialDetailPage ? (
-              <Link 
+              <Link
                 href="/"
                 className="flex items-center space-x-3 hover:opacity-70 transition-opacity duration-200"
               >
                 <CgShapeTriangle
-                  className="w-8 h-8 text-primary"
+                  className="w-9 h-9 text-primary"
                   aria-label="Studio Tama Logo"
                 />
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white font-inter">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white font-system">
                   STUDIO TAMA
                 </h1>
               </Link>
             ) : (
               <>
                 <CgShapeTriangle
-                  className="w-8 h-8 text-primary"
+                  className="w-9 h-9 text-primary"
                   aria-label="Studio Tama Logo"
                 />
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white font-inter">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white font-system">
                   STUDIO TAMA
                 </h1>
               </>

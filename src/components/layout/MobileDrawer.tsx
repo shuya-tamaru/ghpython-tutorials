@@ -1,20 +1,21 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { TUTORIAL_TAGS, TAG_COLORS, type TutorialTag } from '@/lib/tags'
-import { FaInstagram, FaBlog, FaYoutube } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
-import { FaPen } from 'react-icons/fa'
+import { useState } from "react";
+import { TUTORIAL_TAGS, TAG_COLORS, type TutorialTag } from "@/lib/tags";
+import { FaInstagram, FaBlog, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaPen } from "react-icons/fa";
+import { VscGithubInverted } from "react-icons/vsc";
 
 interface MobileDrawerProps {
-  selectedTags: TutorialTag[]
-  onTagToggle: (tag: TutorialTag) => void
-  searchQuery: string
-  onSearchChange: (query: string) => void
-  difficultyFilter: number | null
-  onDifficultyFilterChange: (difficulty: number | null) => void
-  isOpen: boolean
-  onClose: () => void
+  selectedTags: TutorialTag[];
+  onTagToggle: (tag: TutorialTag) => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+  difficultyFilter: number | null;
+  onDifficultyFilterChange: (difficulty: number | null) => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export default function MobileDrawer({
@@ -25,46 +26,58 @@ export default function MobileDrawer({
   difficultyFilter,
   onDifficultyFilterChange,
   isOpen,
-  onClose
+  onClose,
 }: MobileDrawerProps) {
-  const [localSearchQuery, setLocalSearchQuery] = useState('')
+  const [localSearchQuery, setLocalSearchQuery] = useState("");
 
-  const filteredTags = TUTORIAL_TAGS.filter(tag =>
+  const filteredTags = TUTORIAL_TAGS.filter((tag) =>
     tag.toLowerCase().includes(localSearchQuery.toLowerCase())
-  )
+  );
 
   const handleTagClick = (tag: TutorialTag) => {
-    onTagToggle(tag)
-  }
+    onTagToggle(tag);
+  };
 
   const clearAllTags = () => {
-    selectedTags.forEach(tag => onTagToggle(tag))
-  }
+    selectedTags.forEach((tag) => onTagToggle(tag));
+  };
 
   const snsLinks = [
     { name: "X (Twitter)", icon: FaXTwitter, url: "https://x.com/tama20013" },
-    { name: "YouTube", icon: FaYoutube, url: "https://www.youtube.com/@studioTama" },
+    {
+      name: "YouTube",
+      icon: FaYoutube,
+      url: "https://www.youtube.com/@studioTama",
+    },
     { name: "ブログ", icon: FaBlog, url: "https://www.styublog.com/" },
     { name: "note", icon: FaPen, url: "https://note.com/tamaru_shuya" },
-    { name: "Instagram", icon: FaInstagram, url: "https://www.instagram.com/shuya_tamaru/" },
-  ]
+    {
+      name: "GitHub",
+      icon: VscGithubInverted,
+      url: "https://github.com/shuya-tamaru",
+    },
+    {
+      name: "Instagram",
+      icon: FaInstagram,
+      url: "https://www.instagram.com/shuya_tamaru/",
+    },
+  ];
 
   return (
     <>
       {/* Overlay */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-40"
-          onClick={onClose}
-        />
+        <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose} />
       )}
 
       {/* Drawer */}
-      <aside className={`
+      <aside
+        className={`
         fixed right-0 top-0 h-full w-80 bg-white dark:bg-gray-900 z-50 
         transform transition-transform duration-300 ease-in-out
-        ${isOpen ? 'translate-x-0' : 'translate-x-full'}
-      `}>
+        ${isOpen ? "translate-x-0" : "translate-x-full"}
+      `}
+      >
         <div className="p-4 h-full flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between mb-6 pt-4">
@@ -86,7 +99,7 @@ export default function MobileDrawer({
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {snsLinks.map((link) => {
-                const IconComponent = link.icon
+                const IconComponent = link.icon;
                 return (
                   <a
                     key={link.name}
@@ -97,10 +110,10 @@ export default function MobileDrawer({
                   >
                     <IconComponent className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                     <span className="text-sm font-medium text-gray-900 dark:text-white">
-                      {link.name.replace(' (Twitter)', '')}
+                      {link.name.replace(" (Twitter)", "")}
                     </span>
                   </a>
-                )
+                );
               })}
             </div>
           </div>
@@ -159,7 +172,7 @@ export default function MobileDrawer({
           <div className="flex-1 overflow-y-auto mb-4">
             <div className="flex flex-wrap gap-2">
               {filteredTags.map((tag) => {
-                const isSelected = selectedTags.includes(tag)
+                const isSelected = selectedTags.includes(tag);
                 return (
                   <button
                     key={tag}
@@ -167,15 +180,16 @@ export default function MobileDrawer({
                     className={`
                       px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 
                       border border-transparent hover:scale-105 active:scale-95
-                      ${isSelected 
-                        ? 'bg-primary text-white shadow-md hover:bg-primary/90' 
-                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+                      ${
+                        isSelected
+                          ? "bg-primary text-white shadow-md hover:bg-primary/90"
+                          : "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
                       }
                     `}
                   >
                     <span className="capitalize">{tag}</span>
                   </button>
-                )
+                );
               })}
             </div>
           </div>
@@ -196,20 +210,23 @@ export default function MobileDrawer({
                 </button>
               )}
             </div>
-            
+
             <div className="flex flex-wrap gap-2">
               {[1, 2, 3, 4, 5].map((difficulty) => (
                 <button
                   key={difficulty}
-                  onClick={() => onDifficultyFilterChange(
-                    difficultyFilter === difficulty ? null : difficulty
-                  )}
+                  onClick={() =>
+                    onDifficultyFilterChange(
+                      difficultyFilter === difficulty ? null : difficulty
+                    )
+                  }
                   className={`
                     px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 
                     border border-transparent hover:scale-105 active:scale-95 flex items-center gap-1
-                    ${difficultyFilter === difficulty
-                      ? 'bg-secondary text-white shadow-md hover:bg-secondary/90' 
-                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+                    ${
+                      difficultyFilter === difficulty
+                        ? "bg-secondary text-white shadow-md hover:bg-secondary/90"
+                        : "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
                     }
                   `}
                 >
@@ -221,5 +238,5 @@ export default function MobileDrawer({
         </div>
       </aside>
     </>
-  )
+  );
 }

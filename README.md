@@ -92,6 +92,7 @@ npm start
 - **ブログ**: [styublog.com](https://www.styublog.com/)
 - **note**: [tamaru_shuya](https://note.com/tamaru_shuya)
 - **Instagram**: [shuya_tamaru](https://www.instagram.com/shuya_tamaru/)
+- **GitHub**: [shuya-tamaru](https://github.com/shuya-tamaru)
 
 ## ライセンス
 

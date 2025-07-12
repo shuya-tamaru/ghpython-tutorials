@@ -20,6 +20,8 @@ const config: Config = {
       },
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
+        'poppins': ['Poppins', 'sans-serif'],
+        'system': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       },
     },
