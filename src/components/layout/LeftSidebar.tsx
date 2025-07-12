@@ -133,13 +133,6 @@ export default function LeftSidebar({
               })}
             </div>
 
-            {filteredTags.length === 0 && (
-              <div className="text-center py-4">
-                <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  該当するタグが見つかりません
-                </p>
-              </div>
-            )}
           </div>
 
           {/* Difficulty Filter */}

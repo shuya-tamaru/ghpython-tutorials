@@ -11,14 +11,28 @@ export const metadata: Metadata = {
   keywords: 'Grasshopper, Python, 3D modeling, parametric design, tutorial',
   authors: [{ name: 'STUDIO TAMA' }],
   icons: {
-    icon: '/fabicon.svg',
-    shortcut: '/fabicon.svg',
-    apple: '/fabicon.svg',
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
   openGraph: {
     title: 'GhPython Tutorials | STUDIO TAMA',
     description: 'Learn Grasshopper Python with daily modeling challenges',
     type: 'website',
+    images: [
+      {
+        url: '/image.png',
+        width: 1200,
+        height: 630,
+        alt: 'GhPython Tutorials - Learn Grasshopper Python with daily modeling challenges',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'GhPython Tutorials | STUDIO TAMA',
+    description: 'Learn Grasshopper Python with daily modeling challenges',
+    images: ['/image.png'],
   },
 }
 
