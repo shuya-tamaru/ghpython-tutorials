@@ -1,10 +1,12 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import { HiOutlineFilter, HiOutlineTag, HiOutlineStar } from 'react-icons/hi'
+import { useState } from 'react'
 import { TUTORIAL_TAGS, TAG_COLORS, type TutorialTag } from '@/lib/tags'
+import { FaInstagram, FaBlog, FaYoutube } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
+import { FaPen } from 'react-icons/fa'
 
-interface LeftSidebarProps {
+interface MobileDrawerProps {
   selectedTags: TutorialTag[]
   onTagToggle: (tag: TutorialTag) => void
   searchQuery: string
@@ -15,22 +17,21 @@ interface LeftSidebarProps {
   onClose: () => void
 }
 
-export default function LeftSidebar({ 
-  selectedTags, 
+export default function MobileDrawer({
+  selectedTags,
   onTagToggle,
   searchQuery,
   onSearchChange,
   difficultyFilter,
   onDifficultyFilterChange,
-  isOpen, 
-  onClose 
-}: LeftSidebarProps) {
-  const pathname = usePathname()
-  
-  // チュートリアル詳細ページかどうかを判定
-  const isTutorialDetailPage = pathname?.startsWith('/tutorial/') && pathname !== '/tutorial'
+  isOpen,
+  onClose
+}: MobileDrawerProps) {
+  const [localSearchQuery, setLocalSearchQuery] = useState('')
 
-  const filteredTags = TUTORIAL_TAGS
+  const filteredTags = TUTORIAL_TAGS.filter(tag =>
+    tag.toLowerCase().includes(localSearchQuery.toLowerCase())
+  )
 
   const handleTagClick = (tag: TutorialTag) => {
     onTagToggle(tag)
@@ -40,43 +41,78 @@ export default function LeftSidebar({
     selectedTags.forEach(tag => onTagToggle(tag))
   }
 
+  const snsLinks = [
+    { name: "X (Twitter)", icon: FaXTwitter, url: "https://x.com/tama20013" },
+    { name: "YouTube", icon: FaYoutube, url: "https://www.youtube.com/@studioTama" },
+    { name: "ブログ", icon: FaBlog, url: "https://www.styublog.com/" },
+    { name: "note", icon: FaPen, url: "https://note.com/tamaru_shuya" },
+    { name: "Instagram", icon: FaInstagram, url: "https://www.instagram.com/shuya_tamaru/" },
+  ]
+
   return (
     <>
-      {/* Mobile Overlay */}
+      {/* Overlay */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          className="fixed inset-0 bg-black/50 z-40"
           onClick={onClose}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Drawer */}
       <aside className={`
-        fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-gray-900 
-        z-50 transform transition-transform duration-300
-        md:translate-x-0 md:fixed md:z-auto
-        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-        ${isTutorialDetailPage ? '' : 'border-r border-gray-200 dark:border-gray-700'}
+        fixed right-0 top-0 h-full w-80 bg-white dark:bg-gray-900 z-50 
+        transform transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
-        <div className={`p-4 h-full flex flex-col ${isTutorialDetailPage ? 'opacity-0 pointer-events-none' : ''}`}>
+        <div className="p-4 h-full flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-2">
-              <HiOutlineFilter className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                フィルター
-              </h2>
-            </div>
+          <div className="flex items-center justify-between mb-6 pt-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+              メニュー
+            </h2>
             <button
               onClick={onClose}
-              className="md:hidden p-1 rounded text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             >
               ✕
             </button>
           </div>
 
+          {/* SNS Links */}
+          <div className="mb-6">
+            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+              SNSリンク
+            </h3>
+            <div className="grid grid-cols-2 gap-3">
+              {snsLinks.map((link) => {
+                const IconComponent = link.icon
+                return (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <IconComponent className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      {link.name.replace(' (Twitter)', '')}
+                    </span>
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+
           {/* Search */}
-          <div className="mb-3">
+          <div className="mb-4">
+            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              検索
+            </h3>
             <input
               type="text"
               placeholder="チュートリアルを検索..."
@@ -89,15 +125,25 @@ export default function LeftSidebar({
             />
           </div>
 
+          {/* Tag Search */}
+          <div className="mb-3">
+            <input
+              type="text"
+              placeholder="タグを検索..."
+              value={localSearchQuery}
+              onChange={(e) => setLocalSearchQuery(e.target.value)}
+              className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg 
+                       bg-white dark:bg-gray-800 text-gray-900 dark:text-white
+                       focus:ring-2 focus:ring-primary focus:border-transparent
+                       placeholder-gray-500 dark:placeholder-gray-400"
+            />
+          </div>
 
           {/* Control Bar */}
           <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center space-x-2">
-              <HiOutlineTag className="w-4 h-4 text-primary" />
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                タグ ({selectedTags.length}/{TUTORIAL_TAGS.length})
-              </span>
-            </div>
+            <span className="text-sm text-gray-600 dark:text-gray-400">
+              タグ ({selectedTags.length}/{TUTORIAL_TAGS.length})
+            </span>
             {selectedTags.length > 0 && (
               <button
                 onClick={clearAllTags}
@@ -110,7 +156,7 @@ export default function LeftSidebar({
           </div>
 
           {/* Tags Grid */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto mb-4">
             <div className="flex flex-wrap gap-2">
               {filteredTags.map((tag) => {
                 const isSelected = selectedTags.includes(tag)
@@ -127,30 +173,19 @@ export default function LeftSidebar({
                       }
                     `}
                   >
-                    <span className="capitalize">#{tag}</span>
+                    <span className="capitalize">{tag}</span>
                   </button>
                 )
               })}
             </div>
-
-            {filteredTags.length === 0 && (
-              <div className="text-center py-4">
-                <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  該当するタグが見つかりません
-                </p>
-              </div>
-            )}
           </div>
 
           {/* Difficulty Filter */}
-          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-2">
-                <HiOutlineStar className="w-4 h-4 text-primary" />
-                <span className="text-sm text-gray-600 dark:text-gray-400">
-                  難易度
-                </span>
-              </div>
+              <span className="text-sm text-gray-600 dark:text-gray-400">
+                難易度
+              </span>
               {difficultyFilter !== null && (
                 <button
                   onClick={() => onDifficultyFilterChange(null)}

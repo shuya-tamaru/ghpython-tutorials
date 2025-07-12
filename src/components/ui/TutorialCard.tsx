@@ -56,7 +56,7 @@ export default function TutorialCard({ tutorial, viewMode = 'grid-2' }: Tutorial
               key={tag}
               className={`px-2 py-1 text-xs font-medium rounded ${TAG_COLORS[tag]}`}
             >
-              {tag}
+              #{tag}
             </span>
           ))}
           {tutorial.tags.length > (isCompact ? 2 : 4) && (

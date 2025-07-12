@@ -1,6 +1,7 @@
 'use client'
 
 import TutorialCard from '@/components/ui/TutorialCard'
+import ViewToggle from '@/components/ui/ViewToggle'
 import { FilteredTutorialProvider, useFilteredTutorials } from '@/components/layout/FilteredTutorialProvider'
 import { useFilterContext } from '@/components/layout/MainLayout'
 import { type Tutorial } from '@/types/tutorial'
@@ -11,18 +12,21 @@ interface TutorialGridProps {
 
 function TutorialGridContent() {
   const { filteredTutorials, totalCount } = useFilteredTutorials()
-  const { viewMode } = useFilterContext()
+  const { viewMode, setViewMode } = useFilterContext()
   const gridClasses = viewMode === 'grid-4' 
     ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'
     : 'grid grid-cols-1 md:grid-cols-2 gap-6'
 
   return (
     <div>
-      {/* Results Info */}
-      <div className="mb-6">
+      {/* Header with Results Info and View Toggle */}
+      <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-gray-600 dark:text-gray-400">
           {filteredTutorials.length} / {totalCount} 件のチュートリアル
         </p>
+        <div className="hidden md:block">
+          <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
+        </div>
       </div>
 
       {/* Tutorial Grid */}

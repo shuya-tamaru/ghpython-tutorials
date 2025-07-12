@@ -1,26 +1,43 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { CgShapeTriangle } from "react-icons/cg";
-import { FaTwitter, FaInstagram, FaBlog } from "react-icons/fa";
+import { FaInstagram, FaBlog, FaYoutube, FaHome } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { FaPen } from "react-icons/fa";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
+import { HiMenu } from "react-icons/hi";
+import { useBodyBackground } from "@/hooks/useBodyBackground";
 
-export default function Header() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+interface HeaderProps {
+  onMenuClick: () => void
+}
+
+export default function Header({ onMenuClick }: HeaderProps) {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const pathname = usePathname();
+  
+  // チュートリアル詳細ページかどうかを判定
+  const isTutorialDetailPage = pathname?.startsWith('/tutorial/') && pathname !== '/tutorial';
+
+  // body背景色を管理
+  useBodyBackground(isDarkMode);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+    
+    if (savedTheme === "light") {
+      setIsDarkMode(false);
+      document.documentElement.classList.remove("dark");
+    } else if (savedTheme === "dark") {
       setIsDarkMode(true);
       document.documentElement.classList.add("dark");
     } else {
-      setIsDarkMode(false);
-      document.documentElement.classList.remove("dark");
+      // デフォルトはダークモード
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
     }
   }, []);
 
@@ -38,10 +55,11 @@ export default function Header() {
   };
 
   const snsLinks = [
-    { name: "X (Twitter)", icon: FaTwitter, url: "#" },
-    { name: "Instagram", icon: FaInstagram, url: "#" },
-    { name: "ブログ", icon: FaBlog, url: "#" },
-    { name: "note", icon: FaPen, url: "#" },
+    { name: "X (Twitter)", icon: FaXTwitter, url: "https://x.com/tama20013" },
+    { name: "YouTube", icon: FaYoutube, url: "https://www.youtube.com/@studioTama" },
+    { name: "ブログ", icon: FaBlog, url: "https://www.styublog.com/" },
+    { name: "note", icon: FaPen, url: "https://note.com/tamaru_shuya" },
+    { name: "Instagram", icon: FaInstagram, url: "https://www.instagram.com/shuya_tamaru/" },
   ];
 
   return (
@@ -50,19 +68,36 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <CgShapeTriangle
-              className="w-8 h-8 text-primary"
-              aria-label="Studio Tama Logo"
-            />
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white font-inter">
-              STUDIO TAMA
-            </h1>
+            {isTutorialDetailPage ? (
+              <Link 
+                href="/"
+                className="flex items-center space-x-3 hover:opacity-70 transition-opacity duration-200"
+              >
+                <CgShapeTriangle
+                  className="w-8 h-8 text-primary"
+                  aria-label="Studio Tama Logo"
+                />
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white font-inter">
+                  STUDIO TAMA
+                </h1>
+              </Link>
+            ) : (
+              <>
+                <CgShapeTriangle
+                  className="w-8 h-8 text-primary"
+                  aria-label="Studio Tama Logo"
+                />
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white font-inter">
+                  STUDIO TAMA
+                </h1>
+              </>
+            )}
           </div>
 
-          {/* SNS Links and Theme Toggle */}
+          {/* Actions */}
           <div className="flex items-center space-x-4">
             {/* SNS Links */}
-            <nav className="hidden sm:flex items-center space-x-3">
+            <nav className="hidden md:flex items-center space-x-3">
               {snsLinks.map((link) => {
                 const IconComponent = link.icon;
                 return (
@@ -71,7 +106,7 @@ export default function Header() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-gray-600 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors duration-200"
+                    className="p-2 text-gray-600 dark:text-gray-400 hover:opacity-70 transition-opacity duration-200"
                     aria-label={link.name}
                   >
                     <IconComponent className="w-5 h-5" />
@@ -79,6 +114,15 @@ export default function Header() {
                 );
               })}
             </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={onMenuClick}
+              className="md:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200"
+              aria-label="メニューを開く"
+            >
+              <HiMenu className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            </button>
 
             {/* Theme Toggle */}
             <button
@@ -94,6 +138,17 @@ export default function Header() {
                 <MdDarkMode className="w-5 h-5 text-gray-700" />
               )}
             </button>
+
+            {/* Home Button - Only on tutorial detail pages */}
+            {isTutorialDetailPage && (
+              <Link
+                href="/"
+                className="hidden md:block p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200"
+                aria-label="ホームに戻る"
+              >
+                <FaHome className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              </Link>
+            )}
           </div>
         </div>
       </div>

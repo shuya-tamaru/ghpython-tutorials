@@ -21,14 +21,18 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 .skeleton {
   @apply animate-pulse bg-gray-200 dark:bg-gray-700;
+}
+
+/* Prose code block horizontal scroll */
+.prose pre {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.prose code {
+  word-break: break-word;
 }

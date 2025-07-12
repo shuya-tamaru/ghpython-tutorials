@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   description: 'Learn Grasshopper Python with daily modeling challenges',
   keywords: 'Grasshopper, Python, 3D modeling, parametric design, tutorial',
   authors: [{ name: 'STUDIO TAMA' }],
+  icons: {
+    icon: '/fabicon.svg',
+    shortcut: '/fabicon.svg',
+    apple: '/fabicon.svg',
+  },
   openGraph: {
     title: 'GhPython Tutorials | STUDIO TAMA',
     description: 'Learn Grasshopper Python with daily modeling challenges',

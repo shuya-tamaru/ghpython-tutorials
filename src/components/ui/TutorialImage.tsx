@@ -46,11 +46,7 @@ export default function TutorialImage({
   return (
     <div className={`relative overflow-hidden ${className}`}>
       {loading && (
-        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-pulse flex items-center justify-center">
-          <div className="text-gray-400 dark:text-gray-600">
-            <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
-          </div>
-        </div>
+        <div className="absolute inset-0 skeleton"></div>
       )}
       
       <Image
