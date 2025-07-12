@@ -15,10 +15,13 @@ export const metadata: Metadata = {
     shortcut: '/favicon.svg',
     apple: '/favicon.svg',
   },
+  metadataBase: new URL('https://ghpython-tutorials.vercel.app'),
   openGraph: {
     title: 'GhPython Tutorials | STUDIO TAMA',
     description: 'Learn Grasshopper Python with daily modeling challenges',
     type: 'website',
+    url: 'https://ghpython-tutorials.vercel.app',
+    siteName: 'GhPython Tutorials',
     images: [
       {
         url: '/image.png',
@@ -27,9 +30,12 @@ export const metadata: Metadata = {
         alt: 'GhPython Tutorials - Learn Grasshopper Python with daily modeling challenges',
       },
     ],
+    locale: 'ja_JP',
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@tama20013',
+    creator: '@tama20013',
     title: 'GhPython Tutorials | STUDIO TAMA',
     description: 'Learn Grasshopper Python with daily modeling challenges',
     images: ['/image.png'],
