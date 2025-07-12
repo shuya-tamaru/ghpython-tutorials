@@ -91,7 +91,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
           />
 
           {/* Main Content */}
-          <main className={`flex-1 md:ml-64 min-h-[calc(100vh-4rem)] relative overflow-x-hidden ${isTutorialDetailPage ? 'md:mr-64' : ''}`}>
+          <main className={`flex-1 md:ml-64 min-h-[calc(100vh-4rem)] relative overflow-x-hidden pb-20 ${isTutorialDetailPage ? 'md:mr-64' : ''}`}>
             {children}
           </main>
         </div>

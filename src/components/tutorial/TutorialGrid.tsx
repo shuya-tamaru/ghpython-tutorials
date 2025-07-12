@@ -4,6 +4,7 @@ import TutorialCard from '@/components/ui/TutorialCard'
 import ViewToggle from '@/components/ui/ViewToggle'
 import { FilteredTutorialProvider, useFilteredTutorials } from '@/components/layout/FilteredTutorialProvider'
 import { useFilterContext } from '@/components/layout/MainLayout'
+import { IoIosSearch } from 'react-icons/io'
 import { type Tutorial } from '@/types/tutorial'
 
 interface TutorialGridProps {
@@ -22,7 +23,7 @@ function TutorialGridContent() {
       {/* Header with Results Info and View Toggle */}
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          {filteredTutorials.length} / {totalCount} 件のチュートリアル
+          {filteredTutorials.length} / {totalCount} tutorials
         </p>
         <div className="hidden md:block">
           <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
@@ -42,12 +43,14 @@ function TutorialGridContent() {
 
       {filteredTutorials.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-6xl mb-4">🔍</div>
+          <div className="flex justify-center mb-4">
+            <IoIosSearch className="w-16 h-16 text-gray-400 dark:text-gray-500" />
+          </div>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            該当するチュートリアルが見つかりません
+            No tutorials found
           </h3>
           <p className="text-gray-500 dark:text-gray-400">
-            検索条件やフィルターを変更してお試しください
+            Try changing your search terms or filters
           </p>
         </div>
       )}

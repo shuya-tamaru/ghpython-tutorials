@@ -2,7 +2,7 @@
 
 https://ghpython.styublog.com/
 
-1日1モデリングでGrasshopper Pythonを学ぶチュートリアルサイトです。
+One Model a Day with Grasshopper Python tutorial site.
 
 ## 概要
 

@@ -78,12 +78,12 @@ export default function LeftSidebar({
             <div className="flex items-center space-x-2 mb-3">
               <IoIosSearch className="w-6 h-6 text-red-500" />
               <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
-                タイトル検索
+                Search
               </span>
             </div>
             <input
               type="text"
-              placeholder="チュートリアルを検索..."
+              placeholder="Search tutorials..."
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg 
@@ -99,7 +99,7 @@ export default function LeftSidebar({
               <div className="flex items-center space-x-2">
                 <HiOutlineStar className="w-6 h-6 text-yellow-500" />
                 <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
-                  難易度
+                  Difficulty
                 </span>
               </div>
               {difficultyFilter !== null && (
@@ -109,7 +109,7 @@ export default function LeftSidebar({
                            px-2 py-1 rounded-md bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 
                            border border-red-200 dark:border-red-800 transition-colors"
                 >
-                  クリア
+                  Clear
                 </button>
               )}
             </div>
@@ -133,7 +133,7 @@ export default function LeftSidebar({
                 }}
               />
               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                <span>全て</span>
+                <span>All</span>
                 <span>★1</span>
                 <span>★2</span>
                 <span>★3</span>
@@ -142,7 +142,7 @@ export default function LeftSidebar({
               </div>
               <div className="text-center">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {difficultyFilter ? `★${difficultyFilter}` : '全て表示'}
+                  {difficultyFilter ? `★${difficultyFilter}` : 'All'}
                 </span>
               </div>
             </div>
@@ -153,7 +153,7 @@ export default function LeftSidebar({
             <div className="flex items-center space-x-2">
               <IoPricetagOutline className="w-6 h-6 text-green-500" />
               <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
-                タグ ({selectedTags.length}/{TUTORIAL_TAGS.length})
+                Tags ({selectedTags.length}/{TUTORIAL_TAGS.length})
               </span>
             </div>
             {selectedTags.length > 0 && (
@@ -163,7 +163,7 @@ export default function LeftSidebar({
                          px-2 py-1 rounded-md bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 
                          border border-red-200 dark:border-red-800 transition-colors"
               >
-                クリア
+                Clear
               </button>
             )}
           </div>
