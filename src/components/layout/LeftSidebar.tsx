@@ -114,25 +114,37 @@ export default function LeftSidebar({
               )}
             </div>
             
-            <div className="flex flex-wrap gap-2">
-              {[1, 2, 3, 4, 5].map((difficulty) => (
-                <button
-                  key={difficulty}
-                  onClick={() => onDifficultyFilterChange(
-                    difficultyFilter === difficulty ? null : difficulty
-                  )}
-                  className={`
-                    px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 
-                    border border-transparent hover:scale-105 active:scale-95 flex items-center gap-1
-                    ${difficultyFilter === difficulty
-                      ? 'bg-secondary text-white shadow-md hover:bg-secondary/90' 
-                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
-                    }
-                  `}
-                >
-                  <span>★{difficulty}</span>
-                </button>
-              ))}
+            <div className="space-y-3">
+              <input
+                type="range"
+                min="0"
+                max="5"
+                step="0.5"
+                value={difficultyFilter || 0}
+                onChange={(e) => {
+                  const value = parseFloat(e.target.value);
+                  onDifficultyFilterChange(value === 0 ? null : value);
+                }}
+                className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer
+                         slider:bg-secondary slider:h-2 slider:rounded-lg slider:cursor-pointer
+                         focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-opacity-50"
+                style={{
+                  background: `linear-gradient(to right, #3776AB 0%, #3776AB ${(difficultyFilter || 0) * 20}%, #e5e7eb ${(difficultyFilter || 0) * 20}%, #e5e7eb 100%)`
+                }}
+              />
+              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+                <span>全て</span>
+                <span>★1</span>
+                <span>★2</span>
+                <span>★3</span>
+                <span>★4</span>
+                <span>★5</span>
+              </div>
+              <div className="text-center">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {difficultyFilter ? `★${difficultyFilter}` : '全て表示'}
+                </span>
+              </div>
             </div>
           </div>
 

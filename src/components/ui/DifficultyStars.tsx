@@ -1,4 +1,4 @@
-import { FaStar } from 'react-icons/fa'
+import { FaStar, FaStarHalfAlt } from 'react-icons/fa'
 
 interface DifficultyStarsProps {
   difficulty: number
@@ -23,19 +23,40 @@ export default function DifficultyStars({
     lg: 'text-base'
   }
 
+  const renderStar = (index: number) => {
+    const starPosition = index + 1;
+    
+    if (difficulty >= starPosition) {
+      // 満点の星
+      return (
+        <FaStar
+          key={index}
+          className={`${sizeClasses[size]} text-yellow-400`}
+        />
+      );
+    } else if (difficulty >= starPosition - 0.5) {
+      // 半分の星
+      return (
+        <FaStarHalfAlt
+          key={index}
+          className={`${sizeClasses[size]} text-yellow-400`}
+        />
+      );
+    } else {
+      // 空の星
+      return (
+        <FaStar
+          key={index}
+          className={`${sizeClasses[size]} text-gray-300 dark:text-gray-600`}
+        />
+      );
+    }
+  };
+
   return (
     <div className="flex items-center gap-1">
       <div className="flex">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <FaStar
-            key={index}
-            className={`${sizeClasses[size]} ${
-              index < Math.floor(difficulty)
-                ? 'text-yellow-400'
-                : 'text-gray-300 dark:text-gray-600'
-            }`}
-          />
-        ))}
+        {Array.from({ length: 5 }).map((_, index) => renderStar(index))}
       </div>
       {showNumber && (
         <span className={`${textSizes[size]} text-gray-500 dark:text-gray-400 ml-1`}>

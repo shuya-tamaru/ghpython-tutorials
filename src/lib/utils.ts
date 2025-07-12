@@ -55,7 +55,7 @@ export function filterTutorials(tutorials: Tutorial[], options: TutorialFilterOp
 
   if (options.difficulty !== null && options.difficulty !== undefined) {
     filtered = filtered.filter(tutorial =>
-      Math.floor(tutorial.difficulty) === options.difficulty
+      tutorial.difficulty === options.difficulty
     )
   }
 
