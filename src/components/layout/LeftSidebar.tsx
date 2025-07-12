@@ -93,6 +93,48 @@ export default function LeftSidebar({
             />
           </div>
 
+          {/* Difficulty Filter */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center space-x-2">
+                <HiOutlineStar className="w-6 h-6 text-yellow-500" />
+                <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
+                  難易度
+                </span>
+              </div>
+              {difficultyFilter !== null && (
+                <button
+                  onClick={() => onDifficultyFilterChange(null)}
+                  className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
+                           px-2 py-1 rounded-md bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 
+                           border border-red-200 dark:border-red-800 transition-colors"
+                >
+                  クリア
+                </button>
+              )}
+            </div>
+            
+            <div className="flex flex-wrap gap-2">
+              {[1, 2, 3, 4, 5].map((difficulty) => (
+                <button
+                  key={difficulty}
+                  onClick={() => onDifficultyFilterChange(
+                    difficultyFilter === difficulty ? null : difficulty
+                  )}
+                  className={`
+                    px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 
+                    border border-transparent hover:scale-105 active:scale-95 flex items-center gap-1
+                    ${difficultyFilter === difficulty
+                      ? 'bg-secondary text-white shadow-md hover:bg-secondary/90' 
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
+                    }
+                  `}
+                >
+                  <span>★{difficulty}</span>
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* Control Bar */}
           <div className="flex items-center justify-between mb-3">
@@ -138,49 +180,6 @@ export default function LeftSidebar({
               })}
             </div>
 
-          </div>
-
-          {/* Difficulty Filter */}
-          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-2">
-                <HiOutlineStar className="w-6 h-6 text-yellow-500" />
-                <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
-                  難易度
-                </span>
-              </div>
-              {difficultyFilter !== null && (
-                <button
-                  onClick={() => onDifficultyFilterChange(null)}
-                  className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
-                           px-2 py-1 rounded-md bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 
-                           border border-red-200 dark:border-red-800 transition-colors"
-                >
-                  クリア
-                </button>
-              )}
-            </div>
-            
-            <div className="flex flex-wrap gap-2">
-              {[1, 2, 3, 4, 5].map((difficulty) => (
-                <button
-                  key={difficulty}
-                  onClick={() => onDifficultyFilterChange(
-                    difficultyFilter === difficulty ? null : difficulty
-                  )}
-                  className={`
-                    px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 
-                    border border-transparent hover:scale-105 active:scale-95 flex items-center gap-1
-                    ${difficultyFilter === difficulty
-                      ? 'bg-secondary text-white shadow-md hover:bg-secondary/90' 
-                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
-                    }
-                  `}
-                >
-                  <span>★{difficulty}</span>
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       </aside>

@@ -6,6 +6,9 @@ import { FaInstagram, FaBlog, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaPen } from "react-icons/fa";
 import { VscGithubInverted } from "react-icons/vsc";
+import { HiOutlineStar } from 'react-icons/hi';
+import { IoIosSearch } from 'react-icons/io';
+import { IoPricetagOutline } from 'react-icons/io5';
 
 interface MobileDrawerProps {
   selectedTags: TutorialTag[];
@@ -28,11 +31,7 @@ export default function MobileDrawer({
   isOpen,
   onClose,
 }: MobileDrawerProps) {
-  const [localSearchQuery, setLocalSearchQuery] = useState("");
-
-  const filteredTags = TUTORIAL_TAGS.filter((tag) =>
-    tag.toLowerCase().includes(localSearchQuery.toLowerCase())
-  );
+  const filteredTags = TUTORIAL_TAGS;
 
   const handleTagClick = (tag: TutorialTag) => {
     onTagToggle(tag);
@@ -80,10 +79,7 @@ export default function MobileDrawer({
       >
         <div className="p-4 h-full flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between mb-6 pt-4">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-              メニュー
-            </h2>
+          <div className="flex items-center justify-end mb-6 pt-4">
             <button
               onClick={onClose}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -94,9 +90,6 @@ export default function MobileDrawer({
 
           {/* SNS Links */}
           <div className="mb-6">
-            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-              SNSリンク
-            </h3>
             <div className="grid grid-cols-2 gap-3">
               {snsLinks.map((link) => {
                 const IconComponent = link.icon;
@@ -123,9 +116,12 @@ export default function MobileDrawer({
 
           {/* Search */}
           <div className="mb-4">
-            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              検索
-            </h3>
+            <div className="flex items-center space-x-2 mb-3">
+              <IoIosSearch className="w-6 h-6 text-red-500" />
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                タイトル検索
+              </h3>
+            </div>
             <input
               type="text"
               placeholder="チュートリアルを検索..."
@@ -138,25 +134,59 @@ export default function MobileDrawer({
             />
           </div>
 
-          {/* Tag Search */}
-          <div className="mb-3">
-            <input
-              type="text"
-              placeholder="タグを検索..."
-              value={localSearchQuery}
-              onChange={(e) => setLocalSearchQuery(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg 
-                       bg-white dark:bg-gray-800 text-gray-900 dark:text-white
-                       focus:ring-2 focus:ring-primary focus:border-transparent
-                       placeholder-gray-500 dark:placeholder-gray-400"
-            />
+          {/* Difficulty Filter */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center space-x-2">
+                <HiOutlineStar className="w-6 h-6 text-yellow-500" />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  難易度
+                </span>
+              </div>
+              {difficultyFilter !== null && (
+                <button
+                  onClick={() => onDifficultyFilterChange(null)}
+                  className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
+                           px-2 py-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                >
+                  クリア
+                </button>
+              )}
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {[1, 2, 3, 4, 5].map((difficulty) => (
+                <button
+                  key={difficulty}
+                  onClick={() =>
+                    onDifficultyFilterChange(
+                      difficultyFilter === difficulty ? null : difficulty
+                    )
+                  }
+                  className={`
+                    px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 
+                    border border-transparent hover:scale-105 active:scale-95 flex items-center gap-1
+                    ${
+                      difficultyFilter === difficulty
+                        ? "bg-secondary text-white shadow-md hover:bg-secondary/90"
+                        : "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
+                    }
+                  `}
+                >
+                  <span>★{difficulty}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Control Bar */}
           <div className="flex items-center justify-between mb-3">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
-              タグ ({selectedTags.length}/{TUTORIAL_TAGS.length})
-            </span>
+            <div className="flex items-center space-x-2">
+              <IoPricetagOutline className="w-6 h-6 text-green-500" />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                タグ ({selectedTags.length}/{TUTORIAL_TAGS.length})
+              </span>
+            </div>
             {selectedTags.length > 0 && (
               <button
                 onClick={clearAllTags}
@@ -191,48 +221,6 @@ export default function MobileDrawer({
                   </button>
                 );
               })}
-            </div>
-          </div>
-
-          {/* Difficulty Filter */}
-          <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm text-gray-600 dark:text-gray-400">
-                難易度
-              </span>
-              {difficultyFilter !== null && (
-                <button
-                  onClick={() => onDifficultyFilterChange(null)}
-                  className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
-                           px-2 py-1 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                >
-                  クリア
-                </button>
-              )}
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {[1, 2, 3, 4, 5].map((difficulty) => (
-                <button
-                  key={difficulty}
-                  onClick={() =>
-                    onDifficultyFilterChange(
-                      difficultyFilter === difficulty ? null : difficulty
-                    )
-                  }
-                  className={`
-                    px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 
-                    border border-transparent hover:scale-105 active:scale-95 flex items-center gap-1
-                    ${
-                      difficultyFilter === difficulty
-                        ? "bg-secondary text-white shadow-md hover:bg-secondary/90"
-                        : "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
-                    }
-                  `}
-                >
-                  <span>★{difficulty}</span>
-                </button>
-              ))}
             </div>
           </div>
         </div>

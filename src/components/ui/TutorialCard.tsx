@@ -49,7 +49,7 @@ export default function TutorialCard({ tutorial, viewMode = 'grid-2' }: Tutorial
         )}
 
         {/* Tags */}
-        <div className={`flex flex-wrap gap-1 mb-3 ${isCompact ? 'mb-2' : 'mb-3'}`}>
+        <div className={`flex flex-wrap gap-1 ${isCompact ? 'mb-2' : 'mb-2'}`}>
           {tutorial.tags.slice(0, isCompact ? 2 : 4).map((tag) => (
             <span
               key={tag}
