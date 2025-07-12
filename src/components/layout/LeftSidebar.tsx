@@ -140,11 +140,6 @@ export default function LeftSidebar({
                 <span>★4</span>
                 <span>★5</span>
               </div>
-              <div className="text-center">
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {difficultyFilter ? `★${difficultyFilter}` : 'All'}
-                </span>
-              </div>
             </div>
           </div>
 

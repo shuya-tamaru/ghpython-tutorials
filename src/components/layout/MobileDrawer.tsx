@@ -72,7 +72,7 @@ export default function MobileDrawer({
       {/* Drawer */}
       <aside
         className={`
-        fixed right-0 top-0 h-full w-96 bg-white dark:bg-gray-900 z-50 
+        fixed right-0 top-0 h-full w-[80%] bg-white dark:bg-gray-900 z-50 
         transform transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "translate-x-full"}
       `}
@@ -176,11 +176,6 @@ export default function MobileDrawer({
                 <span>★3</span>
                 <span>★4</span>
                 <span>★5</span>
-              </div>
-              <div className="text-center">
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {difficultyFilter ? `★${difficultyFilter}` : 'All'}
-                </span>
               </div>
             </div>
           </div>
