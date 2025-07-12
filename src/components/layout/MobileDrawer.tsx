@@ -218,7 +218,7 @@ export default function MobileDrawer({
                       }
                     `}
                   >
-                    <span className="capitalize">{tag}</span>
+                    <span className="capitalize">#{tag}</span>
                   </button>
                 );
               })}
