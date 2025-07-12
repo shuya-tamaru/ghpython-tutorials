@@ -99,4 +99,4 @@ npm start
 
 ## ライセンス
 
-© 2024 STUDIO TAMA. All rights reserved.
+© 2025 STUDIO TAMA. All rights reserved.
