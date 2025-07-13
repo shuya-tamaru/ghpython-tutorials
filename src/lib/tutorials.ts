@@ -125,7 +125,7 @@ export async function getTutorialMetadata(): Promise<TutorialMetadata[]> {
 export async function getAllTags(): Promise<string[]> {
   const tutorials = await getAllTutorials()
   const allTags = tutorials.flatMap(tutorial => tutorial.tags)
-  const uniqueTags = [...new Set(allTags)]
+  const uniqueTags = Array.from(new Set(allTags))
   return uniqueTags.sort()
 }
 
