@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import MainLayout from '@/components/layout/MainLayout'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import { getAllTags } from '@/lib/tutorials'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -43,16 +44,18 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const availableTags = await getAllTags()
+  
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <GoogleAnalytics />
-        <MainLayout>
+        <MainLayout availableTags={availableTags}>
           {children}
         </MainLayout>
       </body>

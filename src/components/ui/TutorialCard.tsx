@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import DifficultyStars from './DifficultyStars'
 import TutorialImage from './TutorialImage'
-import { TAG_COLORS } from '@/lib/tags'
 import { type Tutorial } from '@/types/tutorial'
 
 interface TutorialCardProps {
@@ -53,7 +52,7 @@ export default function TutorialCard({ tutorial, viewMode = 'grid-2' }: Tutorial
           {tutorial.tags.slice(0, isCompact ? 2 : 4).map((tag) => (
             <span
               key={tag}
-              className={`px-2 py-1 text-xs font-medium rounded ${TAG_COLORS[tag]}`}
+              className="px-2 py-1 text-xs font-medium rounded bg-gray-200 text-gray-900 border border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600"
             >
               #{tag}
             </span>

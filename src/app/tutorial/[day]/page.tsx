@@ -3,7 +3,6 @@ import { getAllTutorials, getTutorialBySlug, getNextTutorial, getPrevTutorial } 
 import TutorialContent from '@/components/tutorial/TutorialContent'
 import TutorialImage from '@/components/ui/TutorialImage'
 import DifficultyStars from '@/components/ui/DifficultyStars'
-import { TAG_COLORS } from '@/lib/tags'
 
 interface TutorialPageProps {
   params: {
@@ -63,7 +62,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
             {tutorial.tags.map((tag) => (
               <span
                 key={tag}
-                className={`px-3 py-1 text-sm font-medium rounded-full ${TAG_COLORS[tag]} focus:outline-none`}
+                className="px-3 py-1 text-sm font-medium rounded-full bg-gray-200 text-gray-900 border border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none"
               >
                 #{tag}
               </span>

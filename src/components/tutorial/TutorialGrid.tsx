@@ -9,6 +9,7 @@ import { type Tutorial } from '@/types/tutorial'
 
 interface TutorialGridProps {
   tutorials: Tutorial[]
+  availableTags: string[]
 }
 
 function TutorialGridContent() {
@@ -58,7 +59,7 @@ function TutorialGridContent() {
   )
 }
 
-export default function TutorialGrid({ tutorials }: TutorialGridProps) {
+export default function TutorialGrid({ tutorials, availableTags }: TutorialGridProps) {
   const { selectedTags, searchQuery, difficultyFilter } = useFilterContext()
 
   return (

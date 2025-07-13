@@ -6,12 +6,11 @@ import Header from './Header'
 import LeftSidebar from './LeftSidebar'
 import MobileDrawer from './MobileDrawer'
 import ScrollToTop from '@/components/ui/ScrollToTop'
-import { type TutorialTag } from '@/lib/tags'
 
 export type ViewMode = 'grid-2' | 'grid-4'
 
 interface FilterContextType {
-  selectedTags: TutorialTag[]
+  selectedTags: string[]
   searchQuery: string
   difficultyFilter: number | null
   viewMode: ViewMode
@@ -30,10 +29,11 @@ export function useFilterContext() {
 
 interface MainLayoutProps {
   children: React.ReactNode
+  availableTags?: string[]
 }
 
-export default function MainLayout({ children }: MainLayoutProps) {
-  const [selectedTags, setSelectedTags] = useState<TutorialTag[]>([])
+export default function MainLayout({ children, availableTags = [] }: MainLayoutProps) {
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [viewMode, setViewMode] = useState<ViewMode>('grid-2')
   const [searchQuery, setSearchQuery] = useState('')
   const [difficultyFilter, setDifficultyFilter] = useState<number | null>(null)
@@ -44,7 +44,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   // チュートリアル詳細ページかどうかを判定
   const isTutorialDetailPage = pathname?.startsWith('/tutorial/') && pathname !== '/tutorial'
 
-  const handleTagToggle = (tag: TutorialTag) => {
+  const handleTagToggle = (tag: string) => {
     setSelectedTags(prev => 
       prev.includes(tag)
         ? prev.filter(t => t !== tag)
@@ -65,35 +65,40 @@ export default function MainLayout({ children }: MainLayoutProps) {
       <div className="min-h-screen bg-[#F8F9FA] dark:bg-gray-900">
         <Header onMenuClick={() => setMobileDrawerOpen(true)} />
 
-        <div className="flex pt-16">
-          {/* Left Sidebar - Desktop only */}
-          <LeftSidebar
-            selectedTags={selectedTags}
-            onTagToggle={handleTagToggle}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            difficultyFilter={difficultyFilter}
-            onDifficultyFilterChange={setDifficultyFilter}
-            isOpen={leftSidebarOpen}
-            onClose={() => setLeftSidebarOpen(false)}
-          />
+        {/* Container for wide screens */}
+        <div className="max-w-7xl mx-auto pt-16">
+          <div className="flex">
+            {/* Left Sidebar - Desktop only */}
+            <LeftSidebar
+              selectedTags={selectedTags}
+              onTagToggle={handleTagToggle}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              difficultyFilter={difficultyFilter}
+              onDifficultyFilterChange={setDifficultyFilter}
+              isOpen={leftSidebarOpen}
+              onClose={() => setLeftSidebarOpen(false)}
+              availableTags={availableTags}
+            />
 
-          {/* Mobile Drawer */}
-          <MobileDrawer
-            selectedTags={selectedTags}
-            onTagToggle={handleTagToggle}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            difficultyFilter={difficultyFilter}
-            onDifficultyFilterChange={setDifficultyFilter}
-            isOpen={mobileDrawerOpen}
-            onClose={() => setMobileDrawerOpen(false)}
-          />
+            {/* Mobile Drawer */}
+            <MobileDrawer
+              selectedTags={selectedTags}
+              onTagToggle={handleTagToggle}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              difficultyFilter={difficultyFilter}
+              onDifficultyFilterChange={setDifficultyFilter}
+              isOpen={mobileDrawerOpen}
+              onClose={() => setMobileDrawerOpen(false)}
+              availableTags={availableTags}
+            />
 
-          {/* Main Content */}
-          <main className={`flex-1 md:ml-64 min-h-[calc(100vh-4rem)] relative overflow-x-hidden pb-20 ${isTutorialDetailPage ? 'md:mr-64' : ''}`}>
-            {children}
-          </main>
+            {/* Main Content */}
+            <main className={`flex-1 min-h-screen relative overflow-x-hidden pb-20 ${isTutorialDetailPage ? 'md:mr-64' : ''}`}>
+              {children}
+            </main>
+          </div>
         </div>
 
         {/* Scroll to Top Button */}

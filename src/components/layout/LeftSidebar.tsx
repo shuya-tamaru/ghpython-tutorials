@@ -4,17 +4,17 @@ import { usePathname } from 'next/navigation'
 import { HiOutlineStar } from 'react-icons/hi'
 import { IoIosSearch } from 'react-icons/io'
 import { IoPricetagOutline } from 'react-icons/io5'
-import { TUTORIAL_TAGS, TAG_COLORS, type TutorialTag } from '@/lib/tags'
 
 interface LeftSidebarProps {
-  selectedTags: TutorialTag[]
-  onTagToggle: (tag: TutorialTag) => void
+  selectedTags: string[]
+  onTagToggle: (tag: string) => void
   searchQuery: string
   onSearchChange: (query: string) => void
   difficultyFilter: number | null
   onDifficultyFilterChange: (difficulty: number | null) => void
   isOpen: boolean
   onClose: () => void
+  availableTags: string[]
 }
 
 export default function LeftSidebar({ 
@@ -25,16 +25,15 @@ export default function LeftSidebar({
   difficultyFilter,
   onDifficultyFilterChange,
   isOpen, 
-  onClose 
+  onClose,
+  availableTags
 }: LeftSidebarProps) {
   const pathname = usePathname()
   
   // チュートリアル詳細ページかどうかを判定
   const isTutorialDetailPage = pathname?.startsWith('/tutorial/') && pathname !== '/tutorial'
 
-  const filteredTags = TUTORIAL_TAGS
-
-  const handleTagClick = (tag: TutorialTag) => {
+  const handleTagClick = (tag: string) => {
     onTagToggle(tag)
   }
 
@@ -55,7 +54,7 @@ export default function LeftSidebar({
       {/* Sidebar */}
       <aside className={`
         fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 z-50 transform transition-transform duration-300
-        md:translate-x-0 md:fixed md:z-auto
+        md:sticky md:top-8 md:h-[calc(100vh-2rem)] md:z-auto
         ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         ${isTutorialDetailPage 
           ? 'bg-[#F8F9FA] dark:bg-gray-900' 
@@ -64,7 +63,7 @@ export default function LeftSidebar({
       `}>
         <div className={`p-4 h-full flex flex-col ${isTutorialDetailPage ? 'opacity-0 pointer-events-none' : ''}`}>
           {/* Header */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-6">
             <button
               onClick={onClose}
               className="md:hidden p-1 rounded text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -148,7 +147,7 @@ export default function LeftSidebar({
             <div className="flex items-center space-x-2">
               <IoPricetagOutline className="w-6 h-6 text-green-500" />
               <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
-                Tags ({selectedTags.length}/{TUTORIAL_TAGS.length})
+                Tags ({selectedTags.length}/{availableTags.length})
               </span>
             </div>
             {selectedTags.length > 0 && (
@@ -166,7 +165,7 @@ export default function LeftSidebar({
           {/* Tags Grid */}
           <div className="flex-1 overflow-y-auto">
             <div className="flex flex-wrap gap-2">
-              {filteredTags.map((tag) => {
+              {availableTags.map((tag) => {
                 const isSelected = selectedTags.includes(tag)
                 return (
                   <button

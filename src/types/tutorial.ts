@@ -1,10 +1,8 @@
-import { type TutorialTag } from '@/lib/tags'
-
 export interface TutorialFrontmatter {
   day: string
   title: string
   difficulty: number
-  tags: TutorialTag[]
+  tags: string[]
 }
 
 export interface Tutorial {
@@ -12,7 +10,7 @@ export interface Tutorial {
   day: string
   title: string
   difficulty: number
-  tags: TutorialTag[]
+  tags: string[]
   content: string
   htmlContent: string
   thumbnailPath: string
@@ -24,13 +22,13 @@ export interface TutorialMetadata {
   day: string
   title: string
   difficulty: number
-  tags: TutorialTag[]
+  tags: string[]
   thumbnailPath: string
   slug: string
 }
 
 export type TutorialFilterOptions = {
-  tags?: TutorialTag[]
+  tags?: string[]
   difficulty?: number | null
   searchQuery?: string
 }

@@ -4,7 +4,6 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import remarkHtml from 'remark-html'
 import { type Tutorial, type TutorialMetadata, type TutorialFrontmatter, type TutorialFilterOptions } from '@/types/tutorial'
-import { type TutorialTag } from '@/lib/tags'
 import { formatDayId, getThumbnailPath } from '@/lib/utils'
 
 const tutorialsDirectory = path.join(process.cwd(), 'src/content/tutorials')
@@ -123,7 +122,14 @@ export async function getTutorialMetadata(): Promise<TutorialMetadata[]> {
 
 // filterTutorials function moved to utils.ts for client-side compatibility
 
-export function getTutorialsByTag(tag: TutorialTag): Promise<Tutorial[]> {
+export async function getAllTags(): Promise<string[]> {
+  const tutorials = await getAllTutorials()
+  const allTags = tutorials.flatMap(tutorial => tutorial.tags)
+  const uniqueTags = [...new Set(allTags)]
+  return uniqueTags.sort()
+}
+
+export function getTutorialsByTag(tag: string): Promise<Tutorial[]> {
   return getAllTutorials().then(tutorials =>
     tutorials.filter(tutorial => tutorial.tags.includes(tag))
   )

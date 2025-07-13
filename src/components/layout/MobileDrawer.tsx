@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { TUTORIAL_TAGS, TAG_COLORS, type TutorialTag } from "@/lib/tags";
 import { FaInstagram, FaBlog, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaPen } from "react-icons/fa";
@@ -11,14 +10,15 @@ import { IoIosSearch } from 'react-icons/io';
 import { IoPricetagOutline } from 'react-icons/io5';
 
 interface MobileDrawerProps {
-  selectedTags: TutorialTag[];
-  onTagToggle: (tag: TutorialTag) => void;
+  selectedTags: string[];
+  onTagToggle: (tag: string) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   difficultyFilter: number | null;
   onDifficultyFilterChange: (difficulty: number | null) => void;
   isOpen: boolean;
   onClose: () => void;
+  availableTags: string[];
 }
 
 export default function MobileDrawer({
@@ -30,10 +30,9 @@ export default function MobileDrawer({
   onDifficultyFilterChange,
   isOpen,
   onClose,
+  availableTags,
 }: MobileDrawerProps) {
-  const filteredTags = TUTORIAL_TAGS;
-
-  const handleTagClick = (tag: TutorialTag) => {
+  const handleTagClick = (tag: string) => {
     onTagToggle(tag);
   };
 
@@ -185,7 +184,7 @@ export default function MobileDrawer({
             <div className="flex items-center space-x-2">
               <IoPricetagOutline className="w-6 h-6 text-green-500" />
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                Tags ({selectedTags.length}/{TUTORIAL_TAGS.length})
+                Tags ({selectedTags.length}/{availableTags.length})
               </span>
             </div>
             {selectedTags.length > 0 && (
@@ -202,7 +201,7 @@ export default function MobileDrawer({
           {/* Tags Grid */}
           <div className="flex-1 overflow-y-auto mb-4">
             <div className="flex flex-wrap gap-2">
-              {filteredTags.map((tag) => {
+              {availableTags.map((tag) => {
                 const isSelected = selectedTags.includes(tag);
                 return (
                   <button

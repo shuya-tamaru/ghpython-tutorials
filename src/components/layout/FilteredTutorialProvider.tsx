@@ -3,7 +3,6 @@
 import { createContext, useContext, useMemo } from 'react'
 import { type Tutorial, type TutorialFilterOptions } from '@/types/tutorial'
 import { filterTutorials } from '@/lib/utils'
-import { type TutorialTag } from '@/lib/tags'
 
 interface FilteredTutorialContextType {
   filteredTutorials: Tutorial[]
@@ -15,7 +14,7 @@ const FilteredTutorialContext = createContext<FilteredTutorialContextType | null
 interface FilteredTutorialProviderProps {
   children: React.ReactNode
   tutorials: Tutorial[]
-  selectedTags: TutorialTag[]
+  selectedTags: string[]
   searchQuery: string
   difficultyFilter: number | null
 }

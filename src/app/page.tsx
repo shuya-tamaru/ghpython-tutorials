@@ -1,14 +1,17 @@
-import { getAllTutorials } from '@/lib/tutorials'
+import { getAllTutorials, getAllTags } from '@/lib/tutorials'
 import TutorialGrid from '@/components/tutorial/TutorialGrid'
 
 export default async function Home() {
-  const tutorials = await getAllTutorials()
+  const [tutorials, availableTags] = await Promise.all([
+    getAllTutorials(),
+    getAllTags()
+  ])
 
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="max-w-6xl mx-auto">
         {/* Hero Section */}
-        <div className="text-center py-12 mb-8">
+        <div className="text-center py-4 mb-4">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             GhPython Tutorials
           </h1>
@@ -23,7 +26,7 @@ export default async function Home() {
         </div>
 
         {/* Tutorial Grid */}
-        <TutorialGrid tutorials={tutorials} />
+        <TutorialGrid tutorials={tutorials} availableTags={availableTags} />
       </div>
     </div>
   )
