@@ -14,7 +14,9 @@ export const TUTORIAL_TAGS = [
   'parametric',
   'rotate',
   'circle',
-  'polar'
+  'polar',
+  "spiral",
+  "divide"
 ] as const
 
 export type TutorialTag = typeof TUTORIAL_TAGS[number]
@@ -36,4 +38,6 @@ export const TAG_COLORS: Record<TutorialTag, string> = {
   rotate: 'bg-gray-200 text-gray-900 border border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600',
   circle: 'bg-gray-200 text-gray-900 border border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600',
   polar: 'bg-gray-200 text-gray-900 border border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600',
+  spiral: 'bg-gray-200 text-gray-900 border border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600',
+  divide: 'bg-gray-200 text-gray-900 border border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600',
 }
