@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { HiOutlineStar } from 'react-icons/hi'
 import { IoIosSearch } from 'react-icons/io'
 import { IoPricetagOutline } from 'react-icons/io5'
+import { MdOutlineCalendarToday } from 'react-icons/md'
 
 interface LeftSidebarProps {
   selectedTags: string[]
@@ -12,6 +13,9 @@ interface LeftSidebarProps {
   onSearchChange: (query: string) => void
   difficultyFilter: number | null
   onDifficultyFilterChange: (difficulty: number | null) => void
+  dayFilter: number | null
+  onDayFilterChange: (day: number | null) => void
+  maxDay: number
   isOpen: boolean
   onClose: () => void
   availableTags: string[]
@@ -24,6 +28,9 @@ export default function LeftSidebar({
   onSearchChange,
   difficultyFilter,
   onDifficultyFilterChange,
+  dayFilter,
+  onDayFilterChange,
+  maxDay,
   isOpen, 
   onClose,
   availableTags
@@ -61,7 +68,7 @@ export default function LeftSidebar({
           : 'bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700'
         }
       `}>
-        <div className={`p-4 h-full flex flex-col ${isTutorialDetailPage ? 'opacity-0 pointer-events-none' : ''}`}>
+        <div className={`p-4 h-full flex flex-col overflow-y-auto ${isTutorialDetailPage ? 'opacity-0 pointer-events-none' : ''}`}>
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <button
@@ -90,6 +97,55 @@ export default function LeftSidebar({
                        focus:outline-none
                        placeholder-gray-500 dark:placeholder-gray-400"
             />
+          </div>
+
+          {/* Day Filter */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center space-x-2">
+                <MdOutlineCalendarToday className="w-6 h-6 text-blue-500" />
+                <span className="text-base font-semibold text-gray-700 dark:text-gray-300">
+                  Day
+                </span>
+              </div>
+              {dayFilter !== null && (
+                <button
+                  onClick={() => onDayFilterChange(null)}
+                  className="text-xs text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 
+                           px-2 py-1 rounded-md bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30 
+                           border border-red-200 dark:border-red-800 transition-colors"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+            
+            <div className="space-y-3">
+              <input
+                type="range"
+                min="0"
+                max={maxDay}
+                step="1"
+                value={dayFilter || 0}
+                onChange={(e) => {
+                  const value = parseInt(e.target.value);
+                  onDayFilterChange(value === 0 ? null : value);
+                }}
+                className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer
+                         slider:bg-blue-500 slider:h-2 slider:rounded-lg slider:cursor-pointer
+                         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                style={{
+                  background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${((dayFilter || 0) / maxDay) * 100}%, #e5e7eb ${((dayFilter || 0) / maxDay) * 100}%, #e5e7eb 100%)`
+                }}
+              />
+              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+                <span>All</span>
+                <span>Day {Math.ceil(maxDay * 0.25)}</span>
+                <span>Day {Math.ceil(maxDay * 0.5)}</span>
+                <span>Day {Math.ceil(maxDay * 0.75)}</span>
+                <span>Day {maxDay}</span>
+              </div>
+            </div>
           </div>
 
           {/* Difficulty Filter */}
@@ -163,7 +219,7 @@ export default function LeftSidebar({
           </div>
 
           {/* Tags Grid */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto custom-scrollbar">
             <div className="flex flex-wrap gap-2">
               {availableTags.map((tag) => {
                 const isSelected = selectedTags.includes(tag)

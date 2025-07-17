@@ -17,6 +17,7 @@ interface FilteredTutorialProviderProps {
   selectedTags: string[]
   searchQuery: string
   difficultyFilter: number | null
+  dayFilter: number | null
 }
 
 export function FilteredTutorialProvider({
@@ -24,17 +25,19 @@ export function FilteredTutorialProvider({
   tutorials,
   selectedTags,
   searchQuery,
-  difficultyFilter
+  difficultyFilter,
+  dayFilter
 }: FilteredTutorialProviderProps) {
   const filteredTutorials = useMemo(() => {
     const filterOptions: TutorialFilterOptions = {
       tags: selectedTags.length > 0 ? selectedTags : undefined,
       searchQuery: searchQuery.trim() || undefined,
-      difficulty: difficultyFilter
+      difficulty: difficultyFilter,
+      dayFilter: dayFilter
     }
 
     return filterTutorials(tutorials, filterOptions)
-  }, [tutorials, selectedTags, searchQuery, difficultyFilter])
+  }, [tutorials, selectedTags, searchQuery, difficultyFilter, dayFilter])
 
   const value = {
     filteredTutorials,

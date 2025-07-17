@@ -30,5 +30,6 @@ export interface TutorialMetadata {
 export type TutorialFilterOptions = {
   tags?: string[]
   difficulty?: number | null
+  dayFilter?: number | null
   searchQuery?: string
 }

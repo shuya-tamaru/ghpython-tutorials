@@ -60,7 +60,7 @@ function TutorialGridContent() {
 }
 
 export default function TutorialGrid({ tutorials, availableTags }: TutorialGridProps) {
-  const { selectedTags, searchQuery, difficultyFilter } = useFilterContext()
+  const { selectedTags, searchQuery, difficultyFilter, dayFilter } = useFilterContext()
 
   return (
     <FilteredTutorialProvider
@@ -68,6 +68,7 @@ export default function TutorialGrid({ tutorials, availableTags }: TutorialGridP
       selectedTags={selectedTags}
       searchQuery={searchQuery}
       difficultyFilter={difficultyFilter}
+      dayFilter={dayFilter}
     >
       <TutorialGridContent />
     </FilteredTutorialProvider>

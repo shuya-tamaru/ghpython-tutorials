@@ -13,6 +13,7 @@ interface FilterContextType {
   selectedTags: string[]
   searchQuery: string
   difficultyFilter: number | null
+  dayFilter: number | null
   viewMode: ViewMode
   setViewMode: (mode: ViewMode) => void
 }
@@ -37,6 +38,7 @@ export default function MainLayout({ children, availableTags = [] }: MainLayoutP
   const [viewMode, setViewMode] = useState<ViewMode>('grid-2')
   const [searchQuery, setSearchQuery] = useState('')
   const [difficultyFilter, setDifficultyFilter] = useState<number | null>(null)
+  const [dayFilter, setDayFilter] = useState<number | null>(null)
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(false)
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
   const pathname = usePathname()
@@ -56,6 +58,7 @@ export default function MainLayout({ children, availableTags = [] }: MainLayoutP
     selectedTags,
     searchQuery,
     difficultyFilter,
+    dayFilter,
     viewMode,
     setViewMode
   }
@@ -76,6 +79,9 @@ export default function MainLayout({ children, availableTags = [] }: MainLayoutP
               onSearchChange={setSearchQuery}
               difficultyFilter={difficultyFilter}
               onDifficultyFilterChange={setDifficultyFilter}
+              dayFilter={dayFilter}
+              onDayFilterChange={setDayFilter}
+              maxDay={13}
               isOpen={leftSidebarOpen}
               onClose={() => setLeftSidebarOpen(false)}
               availableTags={availableTags}
@@ -89,6 +95,9 @@ export default function MainLayout({ children, availableTags = [] }: MainLayoutP
               onSearchChange={setSearchQuery}
               difficultyFilter={difficultyFilter}
               onDifficultyFilterChange={setDifficultyFilter}
+              dayFilter={dayFilter}
+              onDayFilterChange={setDayFilter}
+              maxDay={13}
               isOpen={mobileDrawerOpen}
               onClose={() => setMobileDrawerOpen(false)}
               availableTags={availableTags}
