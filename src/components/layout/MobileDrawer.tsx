@@ -23,6 +23,7 @@ interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   availableTags: string[];
+  totalTutorialsCount: number;
 }
 
 export default function MobileDrawer({
@@ -38,6 +39,7 @@ export default function MobileDrawer({
   isOpen,
   onClose,
   availableTags,
+  totalTutorialsCount,
 }: MobileDrawerProps) {
   const handleTagClick = (tag: string) => {
     onTagToggle(tag);
@@ -86,6 +88,13 @@ export default function MobileDrawer({
         <div className="p-4 h-full flex flex-col overflow-y-auto">
           {/* Header with SNS and Close */}
           <div className="flex items-center justify-between mb-6 pt-4">
+            {/* Tutorials Count */}
+            <div className="flex items-center space-x-2">
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                Tutorials: {totalTutorialsCount}
+              </span>
+            </div>
+            
             {/* SNS Links */}
             <div className="flex gap-1">
               {snsLinks.map((link) => {

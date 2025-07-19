@@ -19,6 +19,7 @@ interface LeftSidebarProps {
   isOpen: boolean
   onClose: () => void
   availableTags: string[]
+  totalTutorialsCount: number
 }
 
 export default function LeftSidebar({ 
@@ -33,7 +34,8 @@ export default function LeftSidebar({
   maxDay,
   isOpen, 
   onClose,
-  availableTags
+  availableTags,
+  totalTutorialsCount
 }: LeftSidebarProps) {
   const pathname = usePathname()
   
@@ -71,6 +73,11 @@ export default function LeftSidebar({
         <div className={`p-4 h-full flex flex-col overflow-y-auto ${isTutorialDetailPage ? 'opacity-0 pointer-events-none' : ''}`}>
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                Tutorials: {totalTutorialsCount}
+              </span>
+            </div>
             <button
               onClick={onClose}
               className="md:hidden p-1 rounded text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"

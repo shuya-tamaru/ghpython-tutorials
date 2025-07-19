@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import MainLayout from '@/components/layout/MainLayout'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
-import { getAllTags } from '@/lib/tutorials'
+import { getAllTags, getAllTutorials } from '@/lib/tutorials'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -49,13 +49,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const availableTags = await getAllTags()
+  const [availableTags, tutorials] = await Promise.all([
+    getAllTags(),
+    getAllTutorials()
+  ])
   
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <GoogleAnalytics />
-        <MainLayout availableTags={availableTags}>
+        <MainLayout availableTags={availableTags} totalTutorialsCount={tutorials.length}>
           {children}
         </MainLayout>
       </body>

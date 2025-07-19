@@ -31,9 +31,10 @@ export function useFilterContext() {
 interface MainLayoutProps {
   children: React.ReactNode
   availableTags?: string[]
+  totalTutorialsCount?: number
 }
 
-export default function MainLayout({ children, availableTags = [] }: MainLayoutProps) {
+export default function MainLayout({ children, availableTags = [], totalTutorialsCount = 0 }: MainLayoutProps) {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [viewMode, setViewMode] = useState<ViewMode>('grid-2')
   const [searchQuery, setSearchQuery] = useState('')
@@ -81,10 +82,11 @@ export default function MainLayout({ children, availableTags = [] }: MainLayoutP
               onDifficultyFilterChange={setDifficultyFilter}
               dayFilter={dayFilter}
               onDayFilterChange={setDayFilter}
-              maxDay={13}
+              maxDay={totalTutorialsCount}
               isOpen={leftSidebarOpen}
               onClose={() => setLeftSidebarOpen(false)}
               availableTags={availableTags}
+              totalTutorialsCount={totalTutorialsCount}
             />
 
             {/* Mobile Drawer */}
@@ -97,10 +99,11 @@ export default function MainLayout({ children, availableTags = [] }: MainLayoutP
               onDifficultyFilterChange={setDifficultyFilter}
               dayFilter={dayFilter}
               onDayFilterChange={setDayFilter}
-              maxDay={13}
+              maxDay={totalTutorialsCount}
               isOpen={mobileDrawerOpen}
               onClose={() => setMobileDrawerOpen(false)}
               availableTags={availableTags}
+              totalTutorialsCount={totalTutorialsCount}
             />
 
             {/* Main Content */}
