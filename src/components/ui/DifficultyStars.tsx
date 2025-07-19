@@ -56,7 +56,7 @@ export default function DifficultyStars({
   return (
     <div className="flex items-center gap-1">
       <div className="flex">
-        {Array.from({ length: 5 }).map((_, index) => renderStar(index))}
+        {Array.from({ length: 7 }).map((_, index) => renderStar(index))}
       </div>
       {showNumber && (
         <span className={`${textSizes[size]} text-gray-500 dark:text-gray-400 ml-1`}>

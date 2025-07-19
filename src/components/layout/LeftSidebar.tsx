@@ -180,7 +180,7 @@ export default function LeftSidebar({
               <input
                 type="range"
                 min="0"
-                max="5"
+                max="7"
                 step="0.5"
                 value={difficultyFilter || 0}
                 onChange={(e) => {
@@ -191,7 +191,7 @@ export default function LeftSidebar({
                          slider:bg-secondary slider:h-2 slider:rounded-lg slider:cursor-pointer
                          focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-opacity-50"
                 style={{
-                  background: `linear-gradient(to right, #3776AB 0%, #3776AB ${(difficultyFilter || 0) * 20}%, #e5e7eb ${(difficultyFilter || 0) * 20}%, #e5e7eb 100%)`
+                  background: `linear-gradient(to right, #3776AB 0%, #3776AB ${((difficultyFilter || 0) / 7) * 100}%, #e5e7eb ${((difficultyFilter || 0) / 7) * 100}%, #e5e7eb 100%)`
                 }}
               />
               <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
@@ -201,6 +201,8 @@ export default function LeftSidebar({
                 <span>★3</span>
                 <span>★4</span>
                 <span>★5</span>
+                <span>★6</span>
+                <span>★7</span>
               </div>
             </div>
           </div>
