@@ -59,6 +59,13 @@ export function filterTutorials(tutorials: Tutorial[], options: TutorialFilterOp
     )
   }
 
+  if (options.dayFilter !== null && options.dayFilter !== undefined) {
+    filtered = filtered.filter(tutorial => {
+      const dayNum = parseInt(tutorial.day.match(/\d+/)?.[0] || '0')
+      return dayNum === options.dayFilter
+    })
+  }
+
   if (options.searchQuery && options.searchQuery.trim()) {
     const query = options.searchQuery.toLowerCase()
     filtered = filtered.filter(tutorial =>

@@ -93,7 +93,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
                   className="w-9 h-9 text-primary"
                   aria-label="Studio Tama Logo"
                 />
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white font-system">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white font-system">
                   STUDIO TAMA
                 </h1>
               </Link>
@@ -103,7 +103,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
                   className="w-9 h-9 text-primary"
                   aria-label="Studio Tama Logo"
                 />
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white font-system">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white font-system">
                   STUDIO TAMA
                 </h1>
               </>

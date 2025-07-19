@@ -12,16 +12,12 @@ export default async function Home() {
       <div className="max-w-6xl mx-auto">
         {/* Hero Section */}
         <div className="text-center py-4 mb-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            GhPython Tutorials
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            <span className="md:hidden">Grasshopper Python</span>
+            <span className="hidden md:inline">Grasshopper Python Tutorials</span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-6">
-            <span className="md:hidden">
-              One Model a Day<br />with Grasshopper Python
-            </span>
-            <span className="hidden md:inline">
-              One Model a Day with Grasshopper Python
-            </span>
+            One Model a Day Challenge
           </p>
         </div>
 
